@@ -1,0 +1,18 @@
+
+Z	java:S106R"9Replace this use of System.out or System.err by a logger.(Êù¢ñûÿÿÿÿ8ÐŽÎë•.
+X	java:S125X"<This block of commented-out lines of code should be removed.(äÓ…ë8Ø«¯ì•.
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ƒ¨º©øÿÿÿÿ8ÐŽÎë•.
+Z	java:S106E"9Replace this use of System.out or System.err by a logger.(ŠÊž¹üÿÿÿÿ8ÐŽÎë•.
+Z	java:S106)"9Replace this use of System.out or System.err by a logger.(äéÏÆþÿÿÿÿ8ÐŽÎë•.
+Z	java:S106Z"9Replace this use of System.out or System.err by a logger.(¢ß×¯ÿÿÿÿÿ8ÐŽÎë•.
+Z	java:S106V"9Replace this use of System.out or System.err by a logger.(°ç½Ñúÿÿÿÿ8ÐŽÎë•.
+Z	java:S106N"9Replace this use of System.out or System.err by a logger.(ñÿÅêÿÿÿÿÿ8ÐŽÎë•.
+U	java:S106<"9Replace this use of System.out or System.err by a logger.(âéý³8ÐŽÎë•.
+U	java:S106?"9Replace this use of System.out or System.err by a logger.(†¢—Í8ÐŽÎë•.
+U	java:S106W"9Replace this use of System.out or System.err by a logger.(ÍÐ¶™8ÐŽÎë•.
+U	java:S106/"9Replace this use of System.out or System.err by a logger.(šÚÌ8ÐŽÎë•.
+Z	java:S1066"9Replace this use of System.out or System.err by a logger.(ù«¶üÿÿÿÿ8ÐŽÎë•.
+T	java:S106P"9Replace this use of System.out or System.err by a logger.(Ð“b8ÐŽÎë•.
+Z	java:S106Y"9Replace this use of System.out or System.err by a logger.(¾ÞÅøùÿÿÿÿ8ÐŽÎë•.
+Z	java:S1069"9Replace this use of System.out or System.err by a logger.(éñØ£üÿÿÿÿ8ÐŽÎë•.
+U	java:S106C"9Replace this use of System.out or System.err by a logger.(ƒ¢Ò’8ÐŽÎë•.
