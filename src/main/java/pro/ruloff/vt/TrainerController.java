@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
+import org.springframework.stereotype.Controller;
 
+@Controller
 class TrainerController {
 
   private static final int UNDEFINED = -1;
@@ -12,12 +14,23 @@ class TrainerController {
   private static final int TEST = 1;
   private static final int CLOSE_APP = 2;
 
-  private EntryRepository entryRepository = new EntryRepository();
-  private FileService fileService = new FileService();
-  private Scanner scanner = new Scanner(System.in);
+  private final Entry entry;
+  private final EntryRepository entryRepository;
+  private final FileService fileService;
+  private final Scanner scanner;
+
+  public TrainerController(Entry entry, EntryRepository entryRepository, FileService fileService) {
+    this.entry = entry;
+    this.entryRepository = entryRepository;
+    this.fileService = fileService;
+    this.scanner = new Scanner(System.in);
+  }
 
   void mainLoop() {
     System.out.println("Welcome in Vocabulary Trainer Application.");
+    System.out.println("We loaded previously saved data.");
+    entryRepository.loadData();
+
     int option = UNDEFINED;
     while (option != CLOSE_APP) {
       printMenu();
@@ -32,7 +45,7 @@ class TrainerController {
         addEntry();
         break;
       case TEST:
-        test();
+        practice();
         break;
       case CLOSE_APP:
         close();
@@ -42,12 +55,12 @@ class TrainerController {
     }
   }
 
-  private void test() {
+  private void practice() {
     if (entryRepository.isEmpty()) {
       System.out.println("Please, add at least one word to the database.");
       return;
     }
-    final int testSize = entryRepository.size() > 10 ? 10 : entryRepository.size();
+    final int testSize = Math.min(entryRepository.size(), 10);
     Set<Entry> randomEntries = entryRepository.getRandomEntries(testSize);
     int score = 0;
     for (Entry entry : randomEntries) {
@@ -65,10 +78,10 @@ class TrainerController {
 
   private void addEntry() {
     System.out.println("Give an original sentence:");
-    String original = scanner.nextLine();
+    String original = scanner.nextLine().replace(";", ".");
     System.out.println("Give an expected translation:");
-    String translation = scanner.nextLine();
-    Entry entry = new Entry(original, translation);
+    String translation = scanner.nextLine().replace(";", ".");
+    entry.addNewEntry(original, translation);
     entryRepository.add(entry);
   }
 
@@ -85,7 +98,6 @@ class TrainerController {
   private void printMenu() {
     System.out.println("Choose an option:");
     System.out.println("0 - Add new sentence");
-//    System.out.println("Show sentences to practice today");
     System.out.println("1 - Practice");
     System.out.println("2 - Exit the application");
   }

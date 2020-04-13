@@ -6,18 +6,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
+@Slf4j
+@Repository
 class EntryRepository {
 
   private List<Entry> entries;
+  private final FileService fileService;
+  private final Random random;
 
-  EntryRepository() {
-    FileService fileService = new FileService();
-    try {
-      this.entries = fileService.readAllFile();
-    } catch (IOException e) {
-      entries = new ArrayList<>();
-    }
+  EntryRepository(FileService fileService) {
+    entries = new ArrayList<>();
+    random = new Random();
+    this.fileService = fileService;
   }
 
   List<Entry> getAll() {
@@ -25,9 +28,9 @@ class EntryRepository {
   }
 
   Set<Entry> getRandomEntries(int number) {
-    Random random = new Random();
     Set<Entry> randomEntries = new HashSet<>();
-    while (randomEntries.size() < number && randomEntries.size() < entries.size()) {
+    while (randomEntries.size() < number
+        && randomEntries.size() < entries.size()) {
       randomEntries.add(entries.get(random.nextInt(entries.size())));
     }
     return randomEntries;
@@ -43,5 +46,13 @@ class EntryRepository {
 
   boolean isEmpty() {
     return entries.isEmpty();
+  }
+
+  void loadData() {
+    try {
+      this.entries = fileService.readAllFile();
+    } catch (IOException exp) {
+      log.error("Problem reading file.", exp);
+    }
   }
 }
