@@ -13,13 +13,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 class EntryRepository {
 
-  private List<Entry> entries;
+  private final List<Entry> entries;
   private final FileService fileService;
   private final Random random;
 
-  EntryRepository(FileService fileService) {
-    entries = new ArrayList<>();
-    random = new Random();
+  EntryRepository(FileService fileService, Random random) {
+    this.random = random;
+    this.entries = new ArrayList<>();
     this.fileService = fileService;
   }
 
@@ -50,7 +50,7 @@ class EntryRepository {
 
   void loadData() {
     try {
-      this.entries = fileService.readAllFile();
+      this.entries.addAll(fileService.readAllFile());
     } catch (IOException exp) {
       log.error("Problem reading file.", exp);
     }

@@ -22,9 +22,7 @@ class FileService {
   List<Entry> readAllFile() throws IOException {
     return Files.readAllLines(Paths.get(fileName))
         .stream()
-        .peek(System.out::println)
         .map(entry::parseRow)
-        .peek(System.out::println)
         .collect(Collectors.toList());
   }
 

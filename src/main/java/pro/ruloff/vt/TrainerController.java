@@ -19,11 +19,15 @@ class TrainerController {
   private final FileService fileService;
   private final Scanner scanner;
 
-  public TrainerController(Entry entry, EntryRepository entryRepository, FileService fileService) {
+  public TrainerController(
+      Entry entry,
+      EntryRepository entryRepository,
+      FileService fileService,
+      Scanner scanner) {
     this.entry = entry;
     this.entryRepository = entryRepository;
     this.fileService = fileService;
-    this.scanner = new Scanner(System.in);
+    this.scanner = scanner;
   }
 
   void mainLoop() {
@@ -63,14 +67,14 @@ class TrainerController {
     final int testSize = Math.min(entryRepository.size(), 10);
     Set<Entry> randomEntries = entryRepository.getRandomEntries(testSize);
     int score = 0;
-    for (Entry entry : randomEntries) {
-      System.out.printf("Enter translation for: \"%s\"%n", entry.getOriginal());
+    for (Entry singleEntry : randomEntries) {
+      System.out.printf("Enter translation for: \"%s\"%n", singleEntry.getOriginal());
       String translation = scanner.nextLine();
-      if (entry.getTranslation().equalsIgnoreCase(translation)) {
+      if (singleEntry.getTranslation().equalsIgnoreCase(translation)) {
         System.out.println("Correct answer");
         score++;
       } else {
-        System.out.println("Wrong answer - " + entry.getTranslation());
+        System.out.println("Wrong answer - " + singleEntry.getTranslation());
       }
     }
     System.out.printf("Your score: %d/%d%n", score, testSize);

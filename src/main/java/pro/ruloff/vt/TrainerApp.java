@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TrainerApp {
 
   public static void main(String[] args) {
-    Object trainer = SpringApplication.run(TrainerApp.class)
-        .getBean("trainerController");
-    ((TrainerController) trainer).mainLoop();
+    TrainerController trainer = SpringApplication.run(TrainerApp.class)
+        .getBean(TrainerController.class);
+    trainer.mainLoop();
   }
 }

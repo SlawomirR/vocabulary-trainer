@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 class Entry {
 
   public static final String SEMICOLON = ";";
+
   private String original;
   private String translation;
 
@@ -32,6 +33,6 @@ class Entry {
   }
 
   String getSemicolonSeparatedFields() {
-    return original + ";" + translation;
+    return original + SEMICOLON + translation;
   }
 }
