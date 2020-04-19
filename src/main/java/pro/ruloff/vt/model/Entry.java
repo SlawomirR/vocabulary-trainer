@@ -1,4 +1,4 @@
-package pro.ruloff.vt;
+package pro.ruloff.vt.model;
 
 import lombok.Data;
 import org.springframework.context.annotation.Scope;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @Scope(value = "singleton")
-class Entry {
+public class Entry {
 
   public static final String SEMICOLON = ";";
 
@@ -23,16 +23,16 @@ class Entry {
     this.translation = translation;
   }
 
-  public Entry addNewEntry(String original, String translation) {
+  public Entry createNewEntry(String original, String translation) {
     return new Entry(original, translation);
   }
 
-  Entry parseRow(String text) {
+  public Entry parseRow(String text) {
     String[] split = text.split(SEMICOLON);
-    return addNewEntry(split[0].trim(), split[1].trim());
+    return createNewEntry(split[0].trim(), split[1].trim());
   }
 
-  String getSemicolonSeparatedFields() {
+  public String getSemicolonSeparatedFields() {
     return original + SEMICOLON + translation;
   }
 }

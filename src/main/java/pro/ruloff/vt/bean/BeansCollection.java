@@ -1,4 +1,4 @@
-package pro.ruloff.vt;
+package pro.ruloff.vt.bean;
 
 import java.util.Random;
 import java.util.Scanner;
