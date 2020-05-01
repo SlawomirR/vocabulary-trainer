@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import pro.ruloff.vt.model.Entry;
 
@@ -16,12 +17,12 @@ import pro.ruloff.vt.model.Entry;
 @Repository
 public class FileRepository implements VtRepository {
 
-  private static final String FILE_NAME = "data.csv";
-
   private final Entry entry;
   private final List<Entry> entries;
+  private final String fileName;
 
-  FileRepository(Entry entry) {
+  FileRepository(Entry entry, @Value("${DATA-FILE}") String fileName) {
+    this.fileName = fileName;
     this.entries = new ArrayList<>();
     this.entry = entry;
   }
@@ -35,7 +36,7 @@ public class FileRepository implements VtRepository {
   }
 
   public void saveEntries() throws IOException {
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
       for (Entry singleEntry : entries) {
         writer.write(singleEntry.getSemicolonSeparatedFields());
         writer.newLine();
@@ -53,7 +54,7 @@ public class FileRepository implements VtRepository {
   }
 
   private List<Entry> readWholeFile() throws IOException {
-    return Files.readAllLines(Paths.get(FILE_NAME))
+    return Files.readAllLines(Paths.get(fileName))
         .stream()
         .map(entry::parseRow)
         .collect(Collectors.toList());
