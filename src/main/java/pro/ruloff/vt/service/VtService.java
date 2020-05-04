@@ -7,22 +7,22 @@ import java.util.Random;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 import pro.ruloff.vt.model.Entry;
-import pro.ruloff.vt.repository.FileRepository;
+import pro.ruloff.vt.repository.VtRepository;
 
 @Service
 public class VtService {
 
   private final Random random;
-  private final FileRepository fileRepository;
+  private final VtRepository vtRepository;
 
-  VtService(FileRepository fileRepository, Random random) {
-    this.fileRepository = fileRepository;
+  VtService(VtRepository vtRepository, Random random) {
+    this.vtRepository = vtRepository;
     this.random = random;
   }
 
   public Set<Entry> getRandomEntries(int number) {
     Set<Entry> randomEntries = new HashSet<>();
-    List<Entry> entries = fileRepository.getAll();
+    List<Entry> entries = vtRepository.getAll();
     while (randomEntries.size() < number
         && randomEntries.size() < entries.size()) {
       randomEntries.add(entries.get(random.nextInt(entries.size())));
@@ -31,14 +31,14 @@ public class VtService {
   }
 
   public void saveEntries() throws IOException {
-    fileRepository.saveEntries();
+    vtRepository.saveEntries();
   }
 
   public void addNewEntry(String original, String translation) {
-    fileRepository.add(original, translation);
+    vtRepository.add(original, translation);
   }
 
   public List<Entry> loadData() {
-    return fileRepository.loadAllData();
+    return vtRepository.loadAllData();
   }
 }

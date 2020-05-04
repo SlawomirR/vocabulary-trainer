@@ -29,6 +29,7 @@ public class Entry {
 
   public Entry parseRow(String text) {
     String[] split = text.split(SEMICOLON);
+    // TODO IndexOutOfBoundException should inform about wrong or broken data in file
     return createNewEntry(split[0].trim(), split[1].trim());
   }
 

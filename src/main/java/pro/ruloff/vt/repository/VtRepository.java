@@ -9,4 +9,8 @@ public interface VtRepository {
   List<Entry> loadAllData();
 
   void saveEntries() throws IOException;
+
+  void add(String original, String translation);
+
+  List<Entry> getAll();
 }
